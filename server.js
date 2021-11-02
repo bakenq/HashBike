@@ -21,7 +21,7 @@ app.use(express.static(__dirname + "/images"));
 
 // Get-Requests
 app.get("/home", function(req, res){
-    res.sendFile(__dirname + "/startseite.html");
+    res.sendFile(__dirname + "/views/startseite.html");
 });
 
 app.get("/login", function(req, res){
