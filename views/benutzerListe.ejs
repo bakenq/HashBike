@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formularauswertung</title>
+    </head>
+    <body>
+        <body style="background-color:rgb(176, 211, 117);"></body>
+        <style>
+           div.center {
+                text-align: center;
+           }
+           table.center {
+               margin-left: auto;
+               margin-right: auto;
+           }
+        </style>
+
+        <div class="center">
+            <h1>Anmeldung erfolgreich</h1>
+            <a href="/login">
+                Zurück zum Login </a>
+            <br><br>
+            <h3>Liste aller Benutzer</h3>
+        </div>
+            <table border="1" class="center">
+                <tr>
+                    <th>Benutzername</th>
+                    <th>Passwort</th>
+                    <% for(var i = 0; i < benutzerListe.length; i++){ %>
+                        <tr>
+                            <td><%= benutzerListe[i].name %></td>
+                            <td><%= benutzerListe[i].pass %></td>
+                        </tr>
+                    <% } %>
+                </tr>
+            </table>
+    </body>
+</html>
