@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 
 // Server Start
 app.listen(3000, function(){
-    console.log("listening on 3000");
+    console.log("Server started on port 3000");
 });
 
 app.use(express.static(__dirname + "/images"));
@@ -34,7 +34,7 @@ app.get("/register", function(req, res){
 
 
 // Post-Requests
-app.post("/kontakt", function(req, res){
+app.post("/anmeldung", function(req, res){
     const bname = req.body.bname;
     const pwd = req.body.pwd;
 
@@ -52,7 +52,7 @@ app.post("/postreg", function(req, res){
     const regpwd = req.body.regpwd;
 
     if(benutzerExistiert(regname) == true) {
-        res.send("Benutzername existiert bereits");
+        res.sendFile(__dirname + "/views/regFehler.html");
     } else {
         benutzerHinzufuegen(regname, regpwd);
         res.sendFile(__dirname + "/views/regErfolg.html");
