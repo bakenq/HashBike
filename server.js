@@ -55,7 +55,7 @@ app.post("/anmeldung", function(req, res){
             }
             res.sendFile(__dirname + "/views/loginFehler.html");  
         }
-    )
+    );
 });
 
 // Registrierung
@@ -83,7 +83,7 @@ app.post("/postreg", function(req, res){
 });
 
 
-// unbenutzte funktionen, weil ich asynchrone funktionen nicht mag
+// unbenutzt, weil ich asynchrone funktionen nicht mag
 function benutzerExistiert(benutzername) {
     for (let i = 0; i < benutzer.length; i++) {
         if (benutzer[i].name == benutzername) {
