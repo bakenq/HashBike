@@ -10,6 +10,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.engine('.ejs', require('ejs').__express);
 app.set('view engine', 'ejs');
 
+// sqlite DB
+const DATABASE = "benutzer.db";
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database(DATABASE);
+
 
 // Server Start
 app.listen(3000, function(){
@@ -34,69 +39,85 @@ app.get("/register", function(req, res){
 
 
 // Post-Requests
+
+// Login
 app.post("/anmeldung", function(req, res){
     const bname = req.body.bname;
     const pwd = req.body.pwd;
 
-    if(anmeldungErfolgreich(bname, pwd) == false) {
-        res.sendFile(__dirname + "/views/loginFehler.html");
-    }
-    else if(anmeldungErfolgreich(bname, pwd) == true) {
-        res.render("benutzerListe", {"benutzerListe": benutzerListe});
-    }
-
+    db.all(
+        `SELECT * FROM benutzer`,
+        function(err, rows) {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == bname && rows[i].pass == pwd) {
+                    res.render("benutzerListe", {"benutzer": rows});
+                }
+            }
+            res.sendFile(__dirname + "/views/loginFehler.html");  
+        }
+    )
 });
 
+// Registrierung
 app.post("/postreg", function(req, res){
     const regname = req.body.regname;
     const regpwd = req.body.regpwd;
 
-    if(benutzerExistiert(regname) == true) {
-        res.sendFile(__dirname + "/views/regFehler.html");
-    } else {
-        benutzerHinzufuegen(regname, regpwd);
-        res.sendFile(__dirname + "/views/regErfolg.html");
-    }
-})
+    db.all(
+        `SELECT * FROM benutzer`,
+        function(err, rows) {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == regname) {
+                    res.sendFile(__dirname + "/views/regFehler.html");
+                }
+            }
+            
+            db.run(
+                `INSERT INTO benutzer(name, pass) VALUES("${regname}", "${regpwd}")`,
+                function(err){
+                    res.sendFile(__dirname + "/views/regErfolg.html");
+                }
+            );
+        }
+    )
+});
 
 
-// Benutzerliste
-let benutzerListe = [
-    {
-        name: "Alice",
-        pass: "§$Y45/912v"
-    },
-    {
-        name: "Bob",
-        pass: "secret"
-    },
-    {
-        name: "Carla",
-        pass: "123"
-    },
-    {
-        name: "David",
-        pass: "divaD"
-    }
-]
-
+// unbenutzte funktionen, weil ich asynchrone funktionen nicht mag
 function benutzerExistiert(benutzername) {
-    for (let i = 0; i < benutzerListe.length; i++) {
-        if (benutzerListe[i].name == benutzername) {
+    for (let i = 0; i < benutzer.length; i++) {
+        if (benutzer[i].name == benutzername) {
             return true;
         }
     }
     return false;
 }
+
 
 function anmeldungErfolgreich(benutzername, passwort) {
-    for (let i = 0; i < benutzerListe.length; i++) {
-        if (benutzerListe[i].name == benutzername && benutzerListe[i].pass == passwort) {
-            return true;
+    db.all(
+        `SELECT * FROM benutzer`,
+        function(err, rows) {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == benutzername && rows[i].pass == passwort) {
+                    return true;
+                }
+            }
+            return false;  
         }
-    }
-    return false;
+    );
 }
+
+
+
+// function anmeldungErfolgreich(benutzername, passwort) {
+//     for (let i = 0; i < benutzer.length; i++) {
+//         if (benutzer[i].name == benutzername && benutzer[i].pass == passwort) {
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
 function benutzerHinzufuegen(benutzername, passwort) {
     benutzerListe.push({
