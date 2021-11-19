@@ -15,6 +15,22 @@ const DATABASE = "benutzer.db";
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database(DATABASE);
 
+// cookie-parser
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+// express-session
+const session = require("express-session");
+app.use(session({
+    secret: "example",
+    saveUninitialized: false,
+    resave: false
+}));
+
+// bcrypt
+const bcrypt = require("bcrypt");
+
+
 
 // Server Start
 app.listen(3000, function(){
@@ -37,6 +53,30 @@ app.get("/register", function(req, res){
     res.sendFile(__dirname + "/views/register.html");
 });
 
+app.get("/abmeldung", function(req, res){
+    req.session.destroy();
+
+    res.redirect("/home");
+})
+
+// sessionvariable löschen
+app.get("/sessionLoeschen", function(req, res){
+    req.session.destroy();
+
+    // Weiterlieten
+    res.redirect("/zeigesession");
+});
+
+// Sessionvariable lesen
+app.get("/zeigesession", function(req, res){
+    if (!req.session.sessionValue){
+        res.render("zeigesession", {"message": "nicht gesetzt"});
+    }
+    else {
+        res.render("zeigesession", {"message": req.session.sessionValue});
+    }
+});
+
 
 // Post-Requests
 
@@ -45,15 +85,22 @@ app.post("/anmeldung", function(req, res){
     const bname = req.body.bname;
     const pwd = req.body.pwd;
 
-    db.all(
-        `SELECT * FROM benutzer`,
+    db.all(`SELECT pass FROM benutzer WHERE name ='${bname}'`,
         function(err, rows) {
-            for (let i = 0; i < rows.length; i++) {
-                if (rows[i].name == bname && rows[i].pass == pwd) {
-                    res.render("benutzerListe", {"benutzer": rows});
+            if (rows.length == 1) {
+                const hash = rows[0].pass;
+                const isValid = bcrypt.compareSync(pwd, hash);
+                if (isValid == true) {
+                    req.session.user = bname;
+                    res.render("content", {"user": bname});
                 }
+                else {
+                    res.sendFile(__dirname + "/views/loginFehler.html");  
+                }             
             }
-            res.sendFile(__dirname + "/views/loginFehler.html");  
+            else {
+                res.sendFile(__dirname + "/views/loginFehler.html");  
+            }
         }
     );
 });
@@ -63,23 +110,33 @@ app.post("/postreg", function(req, res){
     const regname = req.body.regname;
     const regpwd = req.body.regpwd;
 
-    db.all(
-        `SELECT * FROM benutzer`,
-        function(err, rows) {
-            for (let i = 0; i < rows.length; i++) {
-                if (rows[i].name == regname) {
-                    res.sendFile(__dirname + "/views/regFehler.html");
-                }
-            }
-            
+    db.all(`SELECT * FROM benutzer WHERE name='${regname}'`,
+    function(err, rows) {
+        if (rows.length == 0) {
+            const hash = bcrypt.hashSync(regpwd, 10);
             db.run(
-                `INSERT INTO benutzer(name, pass) VALUES("${regname}", "${regpwd}")`,
-                function(err){
+                `INSERT INTO benutzer(name, pass) VALUES('${regname}', '${hash}')`,
+                function(err) {
                     res.sendFile(__dirname + "/views/regErfolg.html");
                 }
             );
         }
-    )
+        else {
+            res.sendFile(__dirname + "/views/regFehler.html");
+        }
+    });
+});
+
+// Session setzen
+app.post("/sessionSetzen", function(req, res){
+    // Wert aus Formular lesen
+    const param_sessionValue = req.body.sessionValue;
+
+    // Sessionvariable setzen
+    req.session.sessionValue = param_sessionValue;
+
+    // Weiterleiten
+    res.redirect("zeigesession");
 });
 
 
@@ -126,3 +183,39 @@ function benutzerHinzufuegen(benutzername, passwort) {
     })
 }
 
+// Registrierung:
+app.post("/newuser", function(req,res){
+    const param_name = req.body.name;
+    const param_mail = req.body.mail;
+    const param_password = req.body.password;
+    const param_website = req.body.website;
+
+    if(formIsEmpty(param_name, param_password, users) == true){
+        res.render("loginError", {error: "Missing information. Please enter a username and password."});
+        return;
+    }
+
+    db.all(
+        `SELECT * FROM benutzer`,
+        function(err, rows) {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == name){
+                    res.render("loginError", {error: "The user already exists. Please chose a different username."});
+                    return;
+                }
+
+
+
+
+                db.run(
+                    `INSERT INTO users(name, mail, password, website) VALUES("${param_name}", "${param_mail}", "${param_password}", "${param_website}")`,
+                    function(err){
+                        res.redirect("/account");
+                        res.render("account", {"name": name});
+
+                    }
+                );
+            }
+        }
+    );
+});
