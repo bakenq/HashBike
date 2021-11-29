@@ -20,10 +20,14 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 // express-session
+const oneDay = 1000 * 60 * 60 * 24;
+var sessionValue;
+
 const session = require("express-session");
 app.use(session({
-    secret: "example",
+    secret: "rKM7xbDTZm6lww8YUHHaRqYku9f6Tm7zBw1rYkTE",
     saveUninitialized: false,
+    cookie: {maxAge: oneDay},
     resave: false
 }));
 
@@ -38,61 +42,74 @@ app.listen(3000, function(){
 });
 
 app.use(express.static(__dirname + "/images"));
+app.use(express.static(__dirname + "/public"));
 
 
 // Get-Requests
-app.get("/home", function(req, res){
-    res.sendFile(__dirname + "/views/startseite.html");
+app.get("/", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.send("Willkommen zurück!");
+    } else {
+        res.sendFile(__dirname + "/views/Landing_Page.html");
+    }
 });
 
 app.get("/login", function(req, res){
-    res.sendFile(__dirname + "/views/loginformular.html");
+    res.sendFile(__dirname + "/views/Login.html");
 });
 
 app.get("/register", function(req, res){
+    res.sendFile(__dirname + "/views/SignUp.html");
+});
+
+app.get("/register2", function(req, res){
     res.sendFile(__dirname + "/views/register.html");
 });
 
-app.get("/abmeldung", function(req, res){
-    req.session.destroy();
+app.get("/profile", function(req, res){
+    if(req.session.email) {
+        db.all(`SELECT * FROM user WHERE email ='${req.session.email}'`,
+            function(err, rows) {
+                if (rows.length == 1) {
+                    res.render("profile", {email: rows[0].email, vorname: rows[0].vorname, nachname: rows[0].nachname});
+                }
+            }
+        );
+    } else {
+        res.redirect("/");
+    }
+});
 
-    res.redirect("/home");
-})
 
 // sessionvariable löschen
-app.get("/sessionLoeschen", function(req, res){
-    req.session.destroy();
-
-    // Weiterlieten
-    res.redirect("/zeigesession");
-});
-
-// Sessionvariable lesen
-app.get("/zeigesession", function(req, res){
-    if (!req.session.sessionValue){
-        res.render("zeigesession", {"message": "nicht gesetzt"});
+app.get("/abmeldung", function(req, res){
+    if (req.session.email) {
+        req.session.destroy();
     }
-    else {
-        res.render("zeigesession", {"message": req.session.sessionValue});
-    }
-});
+    
+    res.redirect("/");
+})
 
 
 // Post-Requests
 
 // Login
 app.post("/anmeldung", function(req, res){
-    const bname = req.body.bname;
+    const email = req.body.email;
     const pwd = req.body.pwd;
 
-    db.all(`SELECT pass FROM benutzer WHERE name ='${bname}'`,
+    db.all(`SELECT * FROM user WHERE email ='${email}'`,
         function(err, rows) {
             if (rows.length == 1) {
                 const hash = rows[0].pass;
                 const isValid = bcrypt.compareSync(pwd, hash);
                 if (isValid == true) {
-                    req.session.user = bname;
-                    res.render("content", {"user": bname});
+                    sessionValue = req.session;
+                    sessionValue.email = email;
+                    sessionValue.user = rows[0].vorname;
+                    console.log(sessionValue)
+                    res.render("content", {"user": rows[0].vorname});
                 }
                 else {
                     res.sendFile(__dirname + "/views/loginFehler.html");  
@@ -107,15 +124,21 @@ app.post("/anmeldung", function(req, res){
 
 // Registrierung
 app.post("/postreg", function(req, res){
-    const regname = req.body.regname;
-    const regpwd = req.body.regpwd;
+    const regVorname = req.body.regVorname;
+    const regNachname = req.body.regNachname;
 
-    db.all(`SELECT * FROM benutzer WHERE name='${regname}'`,
+    const regEmail1 = req.body.regEmail1;
+    const regEmail2 = req.body.regEmail2;
+
+    const regPwd1 = req.body.regPwd1;
+    const regPwd2 = req.body.regPwd2;
+
+    db.all(`SELECT * FROM user WHERE email='${regEmail1}'`,
     function(err, rows) {
-        if (rows.length == 0) {
-            const hash = bcrypt.hashSync(regpwd, 10);
+        if (rows.length == 0 && regEmail1 == regEmail2 && regPwd1 == regPwd2) {
+            const hash = bcrypt.hashSync(regPwd1, 10);
             db.run(
-                `INSERT INTO benutzer(name, pass) VALUES('${regname}', '${hash}')`,
+                `INSERT INTO user(vorname, nachname, email, pass) VALUES('${regVorname}', '${regNachname}', '${regEmail1}', '${hash}')`,
                 function(err) {
                     res.sendFile(__dirname + "/views/regErfolg.html");
                 }
@@ -126,59 +149,3 @@ app.post("/postreg", function(req, res){
         }
     });
 });
-
-// Session setzen
-app.post("/sessionSetzen", function(req, res){
-    // Wert aus Formular lesen
-    const param_sessionValue = req.body.sessionValue;
-
-    // Sessionvariable setzen
-    req.session.sessionValue = param_sessionValue;
-
-    // Weiterleiten
-    res.redirect("zeigesession");
-});
-
-
-// unbenutzt, weil ich asynchrone funktionen nicht mag
-function benutzerExistiert(benutzername) {
-    for (let i = 0; i < benutzer.length; i++) {
-        if (benutzer[i].name == benutzername) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-function anmeldungErfolgreich(benutzername, passwort) {
-    db.all(
-        `SELECT * FROM benutzer`,
-        function(err, rows) {
-            for (let i = 0; i < rows.length; i++) {
-                if (rows[i].name == benutzername && rows[i].pass == passwort) {
-                    return true;
-                }
-            }
-            return false;  
-        }
-    );
-}
-
-
-
-// function anmeldungErfolgreich(benutzername, passwort) {
-//     for (let i = 0; i < benutzer.length; i++) {
-//         if (benutzer[i].name == benutzername && benutzer[i].pass == passwort) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-function benutzerHinzufuegen(benutzername, passwort) {
-    benutzerListe.push({
-        name: benutzername,
-        pass: passwort
-    })
-}

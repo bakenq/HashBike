@@ -1,0 +1,535 @@
+.mediaViewInfo {
+	--web-view-name: SignUp;
+	--web-view-id: SignUp;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: SignUp;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#SignUp {
+	position: absolute;
+	width: 1920px;
+	height: 1535px;
+	background-color: rgba(255,255,255,1);
+	overflow: hidden;
+	--web-view-name: SignUp;
+	--web-view-id: SignUp;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+@keyframes fadein {
+
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+
+}
+#LogoFont_b {
+	opacity: 0.24;
+	position: absolute;
+	width: 1920px;
+	height: 401px;
+	left: 0px;
+	top: 567px;
+	overflow: visible;
+}
+#HashBikeFont_ca {
+	position: absolute;
+	width: 1920px;
+	height: 401px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_11_cb {
+	opacity: 0.85;
+	fill: rgba(83,83,82,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_11_cb {
+	position: absolute;
+	overflow: visible;
+	width: 876px;
+	height: 1015px;
+	left: 522px;
+	top: 260px;
+}
+#Sign_Up {
+	left: 858px;
+	top: 285px;
+	position: absolute;
+	overflow: visible;
+	width: 206px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 67.33999633789062px;
+	color: rgba(234,239,182,1);
+	letter-spacing: -1.5px;
+}
+#Email {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 661px;
+	top: 621px;
+	overflow: visible;
+}
+#Email_ce {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_12_cf {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_cf {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Email_Adresse_cg {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 230px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Icon_ionic-ios-mail_ch {
+	position: absolute;
+	width: 60.105px;
+	height: 41.4px;
+	left: 25.561px;
+	top: 12.3px;
+	overflow: visible;
+}
+#Path_2_ci {
+	fill: rgba(51,51,51,1);
+}
+.Path_2_ci {
+	overflow: visible;
+	position: absolute;
+	width: 60.105px;
+	height: 36.041px;
+	left: 0px;
+	top: 5.359px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_3_cj {
+	fill: rgba(51,51,51,1);
+}
+.Path_3_cj {
+	overflow: visible;
+	position: absolute;
+	width: 56.382px;
+	height: 28.291px;
+	left: 1.87px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Email_besttigen {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 661px;
+	top: 724px;
+	overflow: visible;
+}
+#Rectangle_12_cl {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_cl {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Icon_ionic-ios-mail_cm {
+	position: absolute;
+	width: 60.105px;
+	height: 41.4px;
+	left: 21.561px;
+	top: 12.3px;
+	overflow: visible;
+}
+#Path_2_cn {
+	fill: rgba(51,51,51,1);
+}
+.Path_2_cn {
+	overflow: visible;
+	position: absolute;
+	width: 60.105px;
+	height: 36.041px;
+	left: 0px;
+	top: 5.359px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Path_3_co {
+	fill: rgba(51,51,51,1);
+}
+.Path_3_co {
+	overflow: visible;
+	position: absolute;
+	width: 56.382px;
+	height: 28.291px;
+	left: 1.87px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Email_Adresse_besttigen {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 417px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Passwort_besttigen {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 661px;
+	top: 930px;
+	overflow: visible;
+}
+#Rectangle_12_cr {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_cr {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Passwort_besttigen_cs {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 345px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Icon_awesome-lock_ct {
+	fill: rgba(51,51,51,1);
+}
+.Icon_awesome-lock_ct {
+	overflow: visible;
+	position: absolute;
+	width: 38px;
+	height: 43.428px;
+	left: 30px;
+	top: 11.286px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Login_Button_cu {
+	position: absolute;
+	width: 261px;
+	height: 60px;
+	left: 830px;
+	top: 1086px;
+	overflow: visible;
+}
+#Rectangle_13_cv {
+	fill: rgba(149,178,60,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_13_cv {
+	position: absolute;
+	overflow: visible;
+	width: 261px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+}
+#Registrieren {
+	left: 28px;
+	top: 4px;
+	position: absolute;
+	overflow: visible;
+	width: 205px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(0,0,0,1);
+	letter-spacing: -0.64px;
+}
+#Passwort_cx {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 661px;
+	top: 827px;
+	overflow: visible;
+}
+#Passwort_cy {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_12_cz {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_cz {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Passwort_c {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 159px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Icon_awesome-lock_c {
+	fill: rgba(51,51,51,1);
+}
+.Icon_awesome-lock_c {
+	overflow: visible;
+	position: absolute;
+	width: 38px;
+	height: 43.428px;
+	left: 29px;
+	top: 11.286px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Vorname {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 662px;
+	top: 415px;
+	overflow: visible;
+}
+#Vorname_c {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_12_c {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_c {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Vorname_da {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 152px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Icon_material-person {
+	fill: rgba(0,0,0,1);
+}
+.Icon_material-person {
+	overflow: visible;
+	position: absolute;
+	width: 34.533px;
+	height: 34.533px;
+	left: 32px;
+	top: 15.733px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Nachname {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 661px;
+	top: 518px;
+	overflow: visible;
+}
+#Nachname_c {
+	position: absolute;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_12_da {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_12_da {
+	position: absolute;
+	overflow: visible;
+	width: 598px;
+	height: 66px;
+	left: 0px;
+	top: 0px;
+}
+#Nachname_da {
+	opacity: 0.42;
+	left: 156px;
+	top: 7px;
+	position: absolute;
+	overflow: visible;
+	width: 182px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 37.900001525878906px;
+	color: rgba(51,51,51,1);
+	letter-spacing: -0.64px;
+}
+#Icon_material-person_db {
+	fill: rgba(0,0,0,1);
+}
+.Icon_material-person_db {
+	overflow: visible;
+	position: absolute;
+	width: 34.533px;
+	height: 34.533px;
+	left: 33px;
+	top: 15.733px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#Bereits_einen_Account_Zum_Logi {
+	left: 752px;
+	top: 1033px;
+	position: absolute;
+	overflow: visible;
+	width: 417px;
+	white-space: nowrap;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: Login.html;
+	cursor: pointer;
+	text-align: left;
+	font-family: Manrope;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28.43000030517578px;
+	color: rgba(0,0,0,1);
+	letter-spacing: -0.64px;
+}
