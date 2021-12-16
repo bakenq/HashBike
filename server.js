@@ -51,7 +51,7 @@ app.get("/", function(req, res){
     if(sessionValue.email){
         res.send("Willkommen zurück!");
     } else {
-        res.sendFile(__dirname + "/views/Landing_Page.html");
+        res.sendFile(__dirname + "/views/index.html");
     }
 });
 
@@ -59,8 +59,20 @@ app.get("/login", function(req, res){
     res.sendFile(__dirname + "/views/Login.html");
 });
 
-app.get("/register", function(req, res){
-    res.sendFile(__dirname + "/views/SignUp.html");
+app.get("/warenkorb", function(req, res){
+    res.render("warenkorb");
+});
+
+app.get("/login", function(req, res){
+    res.sendFile(__dirname + "/views/Login.html");
+});
+
+app.get("/produkte", function(req, res){
+    db.all(`SELECT * FROM products`,
+        function(err, rows) {
+            res.render("produkte", {produkte: rows});
+        }
+    );
 });
 
 app.get("/register2", function(req, res){
