@@ -67,7 +67,7 @@ app.get("/login", function(req, res){
     res.sendFile(__dirname + "/views/Login.html");
 });
 
-app.get("/produkte", function(req, res){
+app.get("/shop", function(req, res){
     db.all(`SELECT * FROM products`,
         function(err, rows) {
             res.render("produkte", {produkte: rows});
