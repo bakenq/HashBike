@@ -77,7 +77,7 @@ app.get("/shop", function(req, res){
     }
 });
 
-app.get("/shop", function(req, res){
+app.get("/produkte", function(req, res){
     db.all(`SELECT * FROM products`,
         function(err, rows) {
             res.render("produkte", {produkte: rows});
