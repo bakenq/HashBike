@@ -35,7 +35,6 @@ app.use(session({
 const bcrypt = require("bcrypt");
 
 
-
 // Server Start
 app.listen(3000, function(){
     console.log("Server started on port 3000");
@@ -45,11 +44,13 @@ app.use(express.static(__dirname + "/images"));
 app.use(express.static(__dirname + "/public"));
 
 
+
+
 // Get-Requests
 app.get("/", function(req, res){
     sessionValue = req.session;
     if(sessionValue.email){
-        res.send("Willkommen zurück!");
+        res.sendFile(__dirname + "/views/logged-in/homelog.html");
     } else {
         res.sendFile(__dirname + "/views/index.html");
     }
@@ -59,12 +60,21 @@ app.get("/login", function(req, res){
     res.sendFile(__dirname + "/views/Login.html");
 });
 
+app.get("/logout", function(req, res){
+    res.sendFile(__dirname + "/views/logged-in/logout.html")
+});
+
 app.get("/warenkorb", function(req, res){
     res.render("warenkorb");
 });
 
-app.get("/login", function(req, res){
-    res.sendFile(__dirname + "/views/Login.html");
+app.get("/shop", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/shoplog.html");
+    } else {
+        res.sendFile(__dirname + "/views/shop.html");
+    }
 });
 
 app.get("/produkte", function(req, res){
@@ -75,8 +85,17 @@ app.get("/produkte", function(req, res){
     );
 });
 
-app.get("/register2", function(req, res){
-    res.sendFile(__dirname + "/views/register.html");
+app.get("/", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/homelog.html");
+    } else {
+        res.sendFile(__dirname + "/views/index.html");
+    }
+});
+
+app.get("/register", function(req, res){
+    res.sendFile(__dirname + "/views/signup.html");
 });
 
 app.get("/profile", function(req, res){
@@ -93,6 +112,10 @@ app.get("/profile", function(req, res){
     }
 });
 
+app.get("/profile2", function(req, res){
+    res.sendFile(__dirname + "/views/logged-in/profile.html");
+});
+
 
 // sessionvariable löschen
 app.get("/abmeldung", function(req, res){
@@ -100,8 +123,8 @@ app.get("/abmeldung", function(req, res){
         req.session.destroy();
     }
     
-    res.redirect("/");
-})
+    res.redirect("/logout");
+});
 
 
 // Post-Requests
@@ -121,7 +144,8 @@ app.post("/anmeldung", function(req, res){
                     sessionValue.email = email;
                     sessionValue.user = rows[0].vorname;
                     console.log(sessionValue)
-                    res.render("content", {"user": rows[0].vorname});
+                    // res.render("content", {"user": rows[0].vorname});
+                    res.sendFile(__dirname + "/views/logged-in/homelog.html")
                 }
                 else {
                     res.sendFile(__dirname + "/views/loginFehler.html");  
@@ -139,19 +163,24 @@ app.post("/postreg", function(req, res){
     const regVorname = req.body.regVorname;
     const regNachname = req.body.regNachname;
 
-    const regEmail1 = req.body.regEmail1;
-    const regEmail2 = req.body.regEmail2;
+    const strasse = req.body.strasse;
+    const hausnummer = req.body.hausnummer;
+    const stadt = req.body.stadt;
+    const postleitzahl = req.body.postleitzahl;
+
+    const regBenutzername = req.body.regBenutzername;
+    const regEmail = req.body.regEmail;
 
     const regPwd1 = req.body.regPwd1;
     const regPwd2 = req.body.regPwd2;
 
-    db.all(`SELECT * FROM user WHERE email='${regEmail1}'`,
+    db.all(`SELECT * FROM user WHERE email='${regEmail}'`,
     function(err, rows) {
-        if (rows.length == 0 && regEmail1 == regEmail2 && regPwd1 == regPwd2) {
+        if (rows.length == 0 && regPwd1 == regPwd2) {
             const hash = bcrypt.hashSync(regPwd1, 10);
             db.run(
-                `INSERT INTO user(vorname, nachname, email, pass) VALUES('${regVorname}', '${regNachname}', '${regEmail1}', '${hash}')`,
-                function(err) {
+                `INSERT INTO user(vorname, nachname, strasse, hausnummer, stadt, postleitzahl, benutzername, email, pass) VALUES('${regVorname}', '${regNachname}', '${strasse}', '${hausnummer}','${stadt}', '${postleitzahl}', '${regBenutzername}', '${regEmail}', '${hash}')`,
+                function(err) {6
                     res.sendFile(__dirname + "/views/regErfolg.html");
                 }
             );

@@ -1,11 +1,11 @@
 <!DOCTYPE html><!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Sun Jan 02 2022 13:44:59 GMT+0000 (Coordinated Universal Time)  -->
-<html data-wf-page="61a62e7914fdbbe3c098c0c3" data-wf-site="61a613c8db6e3b104605e9b9">
+<html data-wf-page="61acb165fd6f956356982fa0" data-wf-site="61a613c8db6e3b104605e9b9">
 <head>
   <meta charset="utf-8">
-  <title>Login</title>
-  <meta content="Login" property="og:title">
-  <meta content="Login" property="twitter:title">
+  <title>Protected page</title>
+  <meta content="Protected page" property="og:title">
+  <meta content="Protected page" property="twitter:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -18,22 +18,23 @@
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
 </head>
-<body class="body-3">
-  <div class="container w-container">
-    <h1 class="heading-7">Login</h1>
-    <div class="form-block w-form">
-      <form action="/anmeldung" id="wf-form-Email-Form" name="wf-form-Email-Form" data-name="Email Form" method="POST" class="form">
-        <input type="email" class="text-field-2 w-input" maxlength="256" name="email" data-name="email" placeholder="E-Mail" id="email" required="">
-        <input type="password" class="text-field w-input" maxlength="256" name="pwd" data-name="pwd" placeholder="     Passwort" id="pwd" required="">
-        <a href="/register" class="link">Noch keinen Account? Hier registrieren</a><input type="submit" value="Submit" data-wait="Please wait..." data-w-id="ccaf3d1c-c1d0-64e3-c6e0-36deec51e393" class="submit-button w-button">
-        <a href="/" class="link-2">Zurück zur Startseite</a>
+<body>
+  <div class="utility-page-wrap">
+    <div class="utility-page-content w-password-page w-form">
+      <form action="/.wf_auth" method="post" id="email-form" name="email-form" data-name="Email Form" class="utility-page-form w-password-page"><img src="https://d3e54v103j8qbb.cloudfront.net/static/utility-lock.ae54711958.svg" alt="">
+        <h2>Protected Page</h2><label for="pass">Password</label><input type="password" class="w-password-page w-input" autofocus="true" maxlength="256" name="pass" data-name="field" placeholder="Enter your password" id="pass"><input type="submit" value="Submit" data-wait="Please wait..." class="w-password-page w-button">
+        <div class="w-password-page w-form-fail">
+          <div>Incorrect password. Please try again.</div>
+        </div>
+        <div style="display:none" class="w-password-page w-embed w-script"><input type="hidden" name="path" value="<%WF_FORM_VALUE_PATH%>"><input type="hidden" name="page" value="<%WF_FORM_VALUE_PAGE%>"></div>
+        <div style="display:none" class="w-password-page w-embed w-script">
+          <script type="application/javascript">(function _handlePasswordPageOnload() {
+	  if (/[?&]e=1(&|$)/.test(document.location.search)) {
+	    document.querySelector('.w-password-page.w-form-fail').style.display = 'block';
+	  }
+	})()</script>
+        </div>
       </form>
-      <div class="success-message w-form-done">
-        <div class="text-block-4">Du hast dich erfolgreich eingeloggt und wirst gleich weiter geleitet!</div>
-      </div>
-      <div class="error-message w-form-fail">
-        <div class="text-block-3">Das ist wohl etwas schiefgelaufen. Überprüfe doch mal deine Eingabe.</div>
-      </div>
     </div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=61a613c8db6e3b104605e9b9" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
