@@ -41,36 +41,18 @@
   </div>
   <div class="section wf-section">
     <div class="w-layout-grid grid-2">
-      <div id="w-node-e75bdd98-9cf9-e6cf-2169-f8e1a502e03e-74a37620" class="product">
-        <a href="productpages/white-widow.html" class="w-inline-block"><img src="images/White-Widdow.png" loading="lazy" width="250" alt=""></a>
+
+    <% for(var i = 0; i < shop.length; i++){  %>
+
+      <div id="<%= shop[i].name %>" class="product">
+        <a href="productpages/white-widow.html" class="w-inline-block"><img src="images/<%= shop[i].bild %>" loading="lazy" width="250" alt=""></a>
         <div id="w-node-_905b16d9-45b8-e5e1-1c81-75a0e5effe20-74a37620">
-          <div class="text-block-5">White Widdow<br><span class="text-span-4">13,12€</span> pro Gramm</div>
+          <div class="text-block-5"><%= shop[i].name %><br><span class="text-span-4"><%= shop[i].preis %>€</span> pro Gramm</div>
         </div>
       </div>
-      <div id="w-node-_5961f214-742f-ec74-4fa2-fc8b7caaf9e5-74a37620" class="product">
-        <a href="productpages/girl-scout-cookies.html" class="w-inline-block"><img src="images/Girl-Scout-Cookies.png" loading="lazy" width="250" alt="" class="image-5"></a>
-        <div id="w-node-_5961f214-742f-ec74-4fa2-fc8b7caaf9e7-74a37620">
-          <div class="text-block-5">Girl Scout Cookies<br><span class="text-span-4">10,99€</span> pro Gramm</div>
-        </div>
-      </div>
-      <div id="w-node-_17c62dab-4d19-5b18-3450-129be37b8372-74a37620" class="product">
-        <a href="productpages/northern-lights.html" class="w-inline-block"><img src="images/Northern-Light.png" loading="lazy" width="250" alt="" class="image-6"></a>
-        <div id="w-node-_17c62dab-4d19-5b18-3450-129be37b8374-74a37620">
-          <div class="text-block-5">Norther Light<br><span class="text-span-4">9,99€</span> pro Gramm</div>
-        </div>
-      </div>
-      <div id="w-node-_70217be8-457c-de27-4529-7ba6cdfcface-74a37620" class="product">
-        <a href="productpages/pineapple-express.html" class="w-inline-block"><img src="images/Pinappel-Express.png" loading="lazy" width="250" alt=""></a>
-        <div id="w-node-_70217be8-457c-de27-4529-7ba6cdfcfad0-74a37620">
-          <div class="text-block-5">Pineapple Express<br><span class="text-span-4">14,99€</span> pro Gramm</div>
-        </div>
-      </div>
-      <div id="w-node-_042d63ad-f491-e67d-dc34-d8fe5321785e-74a37620" class="product">
-        <a href="productpages/cheese.html" class="w-inline-block"><img src="images/Chees.png" loading="lazy" width="250" alt=""></a>
-        <div id="w-node-_042d63ad-f491-e67d-dc34-d8fe53217860-74a37620">
-          <div class="text-block-5">Cheese<br><span class="text-span-4">11,99€</span> pro Gramm</div>
-        </div>
-      </div>
+
+    <% } %>
+      
     </div>
   </div>
   <footer id="footer" class="footer wf-section">

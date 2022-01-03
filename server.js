@@ -69,12 +69,11 @@ app.get("/warenkorb", function(req, res){
 });
 
 app.get("/shop", function(req, res){
-    sessionValue = req.session;
-    if(sessionValue.email){
-        res.sendFile(__dirname + "/views/logged-in/shoplog.html");
-    } else {
-        res.sendFile(__dirname + "/views/shop.html");
-    }
+    db.all(`SELECT * FROM shop`,
+        function(err, rows){
+            res.render("shop", {shop: rows});
+        }
+    );
 });
 
 app.get("/produkte", function(req, res){
