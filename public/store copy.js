@@ -17,7 +17,7 @@ function ready() {
         input.addEventListener('change', quantityChanged)
     }
 
-    var addToCartButtons = document.getElementsByClassName('button-5 w-button')
+    var addToCartButtons = document.getElementsByClassName('shop-item-button')
     for (var i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCartClicked)
@@ -28,7 +28,7 @@ function ready() {
 
 function purchaseClicked() {
     console.log("Purchase Clicked")
-    alert('Danke für deine Bestellung. Die Lieferung ist schnellstmöglich auf den Weg zu dir')
+    alert('Danke für deine Bestellung. Deine Bestellung ist bald bei dir')
     var cartItems = document.getElementsByClassName('cart-items')[0]
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild)
@@ -54,10 +54,10 @@ function addToCartClicked(event) {
     
     var button = event.target
     var shopItem = button.parentElement.parentElement
-    var title = shopItem.getElementsByClassName('text-block-5')[0].innerText
+    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
     console.log(title, price)
-    var price = shopItem.getElementsByClassName('text-span-4')[0].innerText
-    var imageSrc = shopItem.getElementsByClassName('image-5')[0].src
+    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
+    var imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src
     console.log(imageSrc)
     addItemToCart(title, price, imageSrc)
     updateCartTotal()

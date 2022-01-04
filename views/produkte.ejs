@@ -25,8 +25,8 @@
                 <span class="shop-item-title"><%= produkte[i].name %></span>
             <img class="shop-item-image" src="<%= produkte[i].bild %>" >
             <div class="shop-item-details">
-                <span class="shop-item-price"><%= produkte[i].preis %> €</span>
-                <button type="btn btn-primary shop-item-button">In den Warenkorb</button>
+                <span class="shop-item-price"><%= produkte[i].preis %>€ </span>
+                <button class="btn btn-primary shop-item-button" type="button">In den Warenkorb</button>
             </div>
         </div>
 
@@ -34,10 +34,30 @@
 
         </div>
 </section>
-        
-    <header class="second-header">
-        <nav class="nav main-nav">
-    <li> <a href="/warenkorb"> Zum Warenkorb </a></li>
-    </header>
+<section class="container content-section">
+    <h2 class="section-header">Warenkorb</h2>
+    <div class="cart-row">
+        <span class="cart-item cart-header cart-column">Produkt</span>
+        <span class="cart-price cart-header cart-column">Preis</span>
+        <span class="cart-quantity cart-header cart-column">Gramm</span>
+    </div>
+    <div class="cart-items">
+        <div class="cart-row">
+            <div class="cart-item cart-column">
+                <img class="cart-item-image" src="HashHash.jpg" width="100" height="100">
+                <span class="cart-item-title">Liefergebühr</span>
+            </div>
+            <span class="cart-price cart-column">1€</span>
+            <div class="cart-quantity cart-column">
+                <input class="cart-quantity-input" type="number" value="1">
+            </div>
+        </div>
+    </div>
+    <div class="cart-total">
+        <strong class="cart-total-title">Gesammtpreis</strong>
+        <span class="cart-total-price">1€</span>
+    </div>
+    <button class="btn btn-primary btn-purchase" type="button">Jetzt kaufen</button>
+</section>        
     </nav>  
 </html> 

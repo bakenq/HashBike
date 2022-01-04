@@ -60,6 +60,10 @@ app.get("/login", function(req, res){
     res.sendFile(__dirname + "/views/Login.html");
 });
 
+app.get("/cheese", function(req, res){
+    res.sendFile(__dirname + "/views/productpages/cheese.html");
+});
+
 app.get("/logout", function(req, res){
     res.sendFile(__dirname + "/views/logged-in/logout.html")
 });
@@ -68,7 +72,7 @@ app.get("/warenkorb", function(req, res){
     res.render("warenkorb");
 });
 
-app.get("/shop", function(req, res){
+app.get("/shop2", function(req, res){
     db.all(`SELECT * FROM shop`,
         function(err, rows){
             res.render("shop", {shop: rows});
@@ -76,21 +80,25 @@ app.get("/shop", function(req, res){
     );
 });
 
+app.get("/shop", function(req, res){
+    db.all(`SELECT * FROM shop`,
+    function(err, rows){
+        sessionValue = req.session;
+        if(sessionValue.email){
+            res.render("shoplog", {shop: rows});
+        } else {
+            res.render("shop", {shop: rows});
+        }   
+    });
+});
+
+
 app.get("/produkte", function(req, res){
     db.all(`SELECT * FROM products`,
         function(err, rows) {
             res.render("produkte", {produkte: rows});
         }
     );
-});
-
-app.get("/", function(req, res){
-    sessionValue = req.session;
-    if(sessionValue.email){
-        res.sendFile(__dirname + "/views/logged-in/homelog.html");
-    } else {
-        res.sendFile(__dirname + "/views/index.html");
-    }
 });
 
 app.get("/register", function(req, res){
