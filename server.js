@@ -60,10 +60,6 @@ app.get("/login", function(req, res){
     res.sendFile(__dirname + "/views/Login.html");
 });
 
-app.get("/cheese", function(req, res){
-    res.sendFile(__dirname + "/views/productpages/cheese.html");
-});
-
 app.get("/logout", function(req, res){
     res.sendFile(__dirname + "/views/logged-in/logout.html")
 });
@@ -110,7 +106,7 @@ app.get("/profile", function(req, res){
         db.all(`SELECT * FROM user WHERE email ='${req.session.email}'`,
             function(err, rows) {
                 if (rows.length == 1) {
-                    res.render("profile", {email: rows[0].email, vorname: rows[0].vorname, nachname: rows[0].nachname});
+                    res.render("profile", {vorname: rows[0].vorname, nachname: rows[0].nachname, strasse: rows[0].strasse, hausnummer: rows[0].hausnummer, stadt: rows[0].stadt, postleitzahl: rows[0].postleitzahl, benutzername: rows[0].benutzername, email: rows[0].email});
                 }
             }
         );
@@ -119,9 +115,6 @@ app.get("/profile", function(req, res){
     }
 });
 
-app.get("/profile2", function(req, res){
-    res.sendFile(__dirname + "/views/logged-in/profile.html");
-});
 
 
 // sessionvariable löschen
@@ -131,6 +124,52 @@ app.get("/abmeldung", function(req, res){
     }
     
     res.redirect("/logout");
+});
+
+// Productpages
+app.get("/cheese", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/productpages/cheeselog.html");
+    } else {
+        res.sendFile(__dirname + "/views/productpages/cheese.html");
+    }
+});
+
+app.get("/girl-scout-cookies", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/productpages/girl-scout-cookieslog.html");
+    } else {
+        res.sendFile(__dirname + "/views/productpages/girl-scout-cookies.html");
+    }
+});
+
+app.get("/northern-lights", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/productpages/northern-lightslog.html");
+    } else {
+        res.sendFile(__dirname + "/views/productpages/northern-lights.html");
+    }
+});
+
+app.get("/pineapple-express", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/productpages/pineapple-expresslog.html");
+    } else {
+        res.sendFile(__dirname + "/views/productpages/pineapple-express.html");
+    }
+});
+
+app.get("/white-widow", function(req, res){
+    sessionValue = req.session;
+    if(sessionValue.email){
+        res.sendFile(__dirname + "/views/logged-in/productpages/white-widowlog.html");
+    } else {
+        res.sendFile(__dirname + "/views/productpages/white-widow.html");
+    }
 });
 
 

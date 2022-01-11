@@ -39,7 +39,7 @@
       <% for(var i = 0; i < shop.length; i++){  %>
 
         <div id="<%= shop[i].name %>" class="product">
-          <a href="productpages/white-widow.html" class="w-inline-block"><img src="images/<%= shop[i].bild %>" loading="lazy" width="250" alt="" class="image-5"></a>
+          <a href="<%= shop[i].seite %>" class="w-inline-block"><img src="images/<%= shop[i].bild %>" loading="lazy" width="250" alt="" class="image-5"></a>
           <div id="w-node-_905b16d9-45b8-e5e1-1c81-75a0e5effe20-74a37620">
             <div class="text-block-5"><%= shop[i].name %><br><span class="text-span-4"><%= shop[i].preis %>€</span> pro Gramm</div>
             <a data-w-id="c25a530f-e067-8913-b8bf-7411fe2735a6" href="#" class="button-5 w-button">In die Tüte</a>
