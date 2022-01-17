@@ -68,13 +68,6 @@ app.get("/warenkorb", function(req, res){
     res.render("warenkorb");
 });
 
-app.get("/shop2", function(req, res){
-    db.all(`SELECT * FROM shop`,
-        function(err, rows){
-            res.render("shop", {shop: rows});
-        }
-    );
-});
 
 app.get("/shop", function(req, res){
     db.all(`SELECT * FROM shop`,

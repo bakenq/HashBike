@@ -1,5 +1,0 @@
-CREATE TABLE benutzer (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    pass TEXT NOT NULL
-);
